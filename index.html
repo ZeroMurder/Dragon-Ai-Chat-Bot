@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИИ Чат Dragon - Бесплатно</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-dragon"></i>
+                    <span>ИИ Чат Dragon</span>
+                </div>
+                <div class="users-panel" id="usersPanel">
+                    <div class="current-user" id="currentUser">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="currentUserName">Гость</span>
+                    </div>
+                    <div class="auth-actions" id="authActions">
+                        <button class="auth-btn" id="loginBtn">Войти</button>
+                        <button class="auth-btn outline" id="signupBtn">Регистрация</button>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="subscription-status" id="subscriptionStatus">
+                        <span class="plan-name">Dragon</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Chat Area -->
+        <main class="main-content">
+            <div class="chat-container">
+                <div class="welcome-section" id="welcomeSection">
+                    <div class="welcome-content">
+                        <h1>Добро пожаловать в ИИ Чат Dragon</h1>
+                        <p>Мощный бесплатный ИИ ассистент с встроенной базой знаний</p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-dragon"></i>
+                                <span>Мощный Dragon ИИ</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-brain"></i>
+                                <span>База знаний</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-infinity"></i>
+                                <span>Безлимитные запросы</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-camera"></i>
+                                <span>Анализ изображений</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-gift"></i>
+                                <span>Полностью бесплатно</span>
+                            </div>
+                        </div>
+                        <div class="welcome-commands">
+                            <p><strong>Попробуйте команды:</strong></p>
+                            <div class="command-examples">
+                                <span class="command">/факт</span>
+                                <span class="command">/статистика</span>
+                                <span class="command">/поиск программирование</span>
+                                <span class="command">/помощь</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be added here dynamically -->
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span>Dragon печатает...</span>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Задайте вопрос..."
+                        rows="1"
+                        maxlength="2000"
+                    ></textarea>
+                    <div class="input-actions-inline">
+                        <button id="photoButton" class="photo-button" title="Отправить фото">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                        <button id="sendButton" class="send-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-footer">
+                    <span class="char-count" id="charCount">0/2000</span>
+                    <div class="input-actions">
+                        <button class="action-btn" id="clearBtn" title="Очистить чат">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="action-btn" id="settingsBtn" title="Настройки">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings Modal -->
+        <div class="modal" id="settingsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Настройки</h2>
+                    <button class="close-btn" id="closeSettingsModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h3>API Настройки</h3>
+                        <div class="setting-item">
+                            <label for="apiKey">API Ключ Яндекс Cloud:</label>
+                            <input type="password" id="apiKey" placeholder="Введите ваш API ключ">
+                        </div>
+                        <div class="setting-item">
+                            <label for="apiId">Идентификатор API:</label>
+                            <input type="text" id="apiId" placeholder="Введите идентификатор API">
+                        </div>
+                        <button class="save-settings-btn">Сохранить настройки</button>
+                    </div>
+
+                    <div class="settings-section" style="margin-top:2rem;">
+                        <h3>RAG База знаний</h3>
+                        <div class="setting-item">
+                            <label for="kbInput">Добавить текст в базу знаний (разделяйте темы пустой строкой):</label>
+                            <textarea id="kbInput" rows="6" style="width:100%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:#fff;padding:1rem;resize:vertical" placeholder="Вставьте сюда текстовые материалы..."></textarea>
+                        </div>
+                        <button class="save-settings-btn" id="kbAddBtn">Добавить в базу знаний</button>
+                        <button class="save-settings-btn" id="kbBuildIndexBtn" style="margin-left:8px;background:#2563eb;border-color:#3b82f6;">Построить векторный индекс</button>
+                        <div style="margin-top:.5rem;opacity:.8;font-size:.9rem">Создает локальный векторный индекс (в браузере). Первый запуск может занять 10–30 секунд.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Markdown rendering and syntax highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
+
+    <!-- Firebase Auth (CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+    <!-- App config -->
+    <script src="default-config.js"></script>
+    <script src="dragon-knowledge-base.js"></script>
+
+    <!-- Tiny-embeddings (векторизация в браузере) -->
+    <script type="module">
+      import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.16.1';
+      window.transformers = { pipeline };
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
